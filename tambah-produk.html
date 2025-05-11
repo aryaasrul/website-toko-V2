@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ubah Produk</title>
+  <link rel="stylesheet" href="tambah-produk.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <button class="back-btn">
+        <img src="icons/Arrow-Left-2.svg" alt="Back">
+      </button>
+      <h1>Tambah Produk</h1>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-wrapper">
+    <h2>Informasi Produk</h2>
+
+    <div class="form-box">
+      <!-- Upload Foto -->
+      <div class="photo-header">
+        <span>Foto Produk <span class="optional">(Optional)</span></span>
+        <span class="limit">Max. 3 foto</span>
+      </div>
+      <div class="photo-group">
+        <div class="photo-thumb">
+          <img src="icons/close-square.svg" class="photo-close" alt="Close">
+        </div>
+        <div class="photo-add">
+          <img src="icons/Plus-square.svg" alt="Tambah Foto">
+        </div>
+      </div>
+
+      <!-- Form Fields -->
+      <div class="form-group">
+        <label for="nama">Nama Produk</label>
+        <input type="text" id="nama" placeholder="Nama Produk" maxlength="50">
+        <div class="char-count">0/50</div>
+      </div>
+
+      <div class="form-group">
+        <label for="harga-jual">Harga Jual</label>
+        <input type="text" id="harga-jual" placeholder="Rp 00,00" maxlength="50">
+        <div class="char-count">0/50</div>
+      </div>
+
+      <div class="form-group">
+        <label for="harga-hpp">Harga Hpp</label>
+        <input type="text" id="harga-hpp" placeholder="Rp 00,00" maxlength="50">
+        <div class="char-count">0/50</div>
+      </div>
+
+      <!-- Kategori -->
+      <div class="kategori-group">
+        <label>Kategori</label>
+        <div class="kategori-row">
+          <div class="chips">Semua Produk</div>
+          <div class="chips">Espresso Based</div>
+          <button class="atur-btn">
+            <img src="icons/icon-plus-input-manual.svg" alt="Atur">
+            Atur
+          </button>
+        </div>
+      </div>
+
+      <!-- Simpan -->
+      <div class="simpan-row">
+        <button class="simpan-btn">Simpan</button>
+        <button class="hapus-btn">
+          <img src="icons/delete.svg" alt="Hapus">
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <a class="nav-item" href="kasir.html">
+      <img src="icons/orders-icon.svg" alt="Kasir">
+    </a>
+    <a class="nav-item active" href="katalog.html">
+      <img src="icons/database-icon.svg" alt="Katalog">
+    </a>
+    <a class="nav-item" href="riwayat.html">
+      <img src="icons/laporan-icon.svg" alt="Laporan">
+    </a>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Laporan Penjualan</title>
+  <link rel="stylesheet" href="riwayat.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <h1>Laporan Penjualan</h1>
+  </div>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <button class="filter-btn">
+      <img src="icons/Filter-2.svg" alt="Filter">
+      Filter Tanggal/Waktu
+    </button>
+    <button class="download-btn">
+      <img src="icons/Download.svg" alt="Download">
+    </button>
+  </div>
+
+  <!-- Riwayat Transaksi -->
+  <div class="report-list">
+
+    <div class="report-card open">
+      <div class="report-header">
+        <div class="tanggal">
+          <h2>Selasa, 10 Mei 2025</h2>
+          <p>Total Transaksi <span>+Rp 135.000</span></p>
+          <p>Total Laba <span>+Rp 45.000</span></p>
+        </div>
+        <button class="toggle">
+          <img src="icons/Arrow-Up-2.svg" alt="Tutup">
+        </button>
+      </div>
+
+      <div class="report-details">
+        <p>1x Latte <span>+Rp 135.000</span></p>
+        <p>1x Salted Caramel Latte <span>+Rp 135.000</span></p>
+        <p>1x Americano <span>+Rp 135.000</span></p>
+      </div>
+
+      <button class="download-entry">
+        <img src="icons/Download.svg" alt="Download">
+      </button>
+    </div>
+
+    <div class="report-card closed">
+      <div class="report-header">
+        <div class="tanggal">
+          <h2>Senin, 09 Mei 2025</h2>
+          <p>Total +Rp 135.000</p>
+          <p>Laba +Rp 135.000</p>
+        </div>
+        <button class="toggle">
+          <img src="icons/Arrow-Down-2.svg" alt="Buka">
+        </button>
+      </div>
+    </div>
+
+    <div class="report-card closed">
+      <div class="report-header">
+        <div class="tanggal">
+          <h2>Minggu, 08 Mei 2025</h2>
+          <p>Total +Rp 135.000</p>
+          <p>Laba +Rp 135.000</p>
+        </div>
+        <button class="toggle">
+          <img src="icons/Arrow-Down-2.svg" alt="Buka">
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Footer -->
+  <div class="filter-footer">
+    <img src="icons/Calendar.svg" alt="Kalender">
+    <span>Seminggu Terakhir</span>
+    <img src="icons/Arrow-Down-2.svg" alt="Arrow">
+  </div>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="nav-item">
+      <img src="icons/orders-icon.svg" alt="Kasir">
+    </div>
+    <div class="nav-item">
+      <img src="icons/database-icon.svg" alt="Database">
+    </div>
+    <div class="nav-item active">
+      <img src="icons/laporan-icon.svg" alt="Laporan">
+    </div>
+  </div>
+
+</body>
+</html>
