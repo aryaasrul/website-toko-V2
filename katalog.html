@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Katalog</title>
     <link rel="stylesheet" href="katalog.css">
+    <link rel="stylesheet" href="animations.css">
 </head>
 <body>
     <div class="header">
@@ -31,95 +32,7 @@
     </div>
 
     <div class="product-list">
-        <div class="product-card">
-            <div class="product-info">
-                <div class="product-image"></div>
-                <div class="product-details">
-                    <h3>Americano</h3>
-                    <p>Rp. 11.000</p>
-                </div>
-            </div>
-            <div class="product-options">
-                <button class="btn-options">
-                    <img src="icons/More-Square.svg" alt="Options">
-                </button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="product-info">
-                <div class="product-image"></div>
-                <div class="product-details">
-                    <h3>Americano</h3>
-                    <p>Rp. 11.000</p>
-                </div>
-            </div>
-            <div class="product-options">
-                <button class="btn-options">
-                    <img src="icons/More-Square.svg" alt="Options">
-                </button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="product-info">
-                <div class="product-image"></div>
-                <div class="product-details">
-                    <h3>Americano</h3>
-                    <p>Rp. 11.000</p>
-                </div>
-            </div>
-            <div class="product-options">
-                <button class="btn-options">
-                    <img src="icons/More-Square.svg" alt="Options">
-                </button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="product-info">
-                <div class="product-image"></div>
-                <div class="product-details">
-                    <h3>Americano</h3>
-                    <p>Rp. 11.000</p>
-                </div>
-            </div>
-            <div class="product-options">
-                <button class="btn-options">
-                    <img src="icons/More-Square.svg" alt="Options">
-                </button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="product-info">
-                <div class="product-image"></div>
-                <div class="product-details">
-                    <h3>Americano</h3>
-                    <p>Rp. 11.000</p>
-                </div>
-            </div>
-            <div class="product-options">
-                <button class="btn-options">
-                    <img src="icons/More-Square.svg" alt="Options">
-                </button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="product-info">
-                <div class="product-image"></div>
-                <div class="product-details">
-                    <h3>Americano</h3>
-                    <p>Rp. 11.000</p>
-                </div>
-            </div>
-            <div class="product-options">
-                <button class="btn-options">
-                    <img src="icons/More-Square.svg" alt="Options">
-                </button>
-            </div>
-        </div>
+        <!-- Produk akan dimuat secara dinamis oleh JavaScript -->
     </div>
 
     <div class="navbar">
@@ -133,5 +46,45 @@
             <img src="icons/laporan-icon.svg" alt="Laporan">
         </div>
     </div>
+
+    <!-- Product Options Modal (hidden by default) -->
+    <div id="product-options-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Opsi Produk</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <button id="btn-edit-product" class="option-btn">Edit Produk</button>
+                <button id="btn-delete-product" class="option-btn danger">Hapus Produk</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal (hidden by default) -->
+    <div id="delete-confirmation-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Konfirmasi Hapus</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin ingin menghapus produk ini?</p>
+                <div class="modal-buttons">
+                    <button id="btn-cancel-delete" class="option-btn">Batal</button>
+                    <button id="btn-confirm-delete" class="option-btn danger">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Authentication -->
+    <script src="auth.js"></script>
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="katalog.js"></script>
 </body>
 </html>

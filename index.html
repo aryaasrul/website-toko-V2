@@ -9,10 +9,15 @@
 <body>
     <div class="header">
         <h1>Kasir</h1>
-        <button class="btn-input-manual">
-            <img src="icons/icon-plus-input-manual.svg" alt="Plus">
-            Input Manual
-        </button>
+        <div class="header-actions">
+            <!-- Optional: Tambahkan tombol logout dan elemen untuk nama user -->
+            <span id="user-name" class="user-name"></span>
+            <button id="logout-btn" class="logout-btn">Logout</button>
+            <button class="btn-input-manual">
+                <img src="icons/icon-plus-input-manual.svg" alt="Plus">
+                Input Manual
+            </button>
+        </div>
     </div>
 
     <div class="search-bar">
@@ -26,84 +31,19 @@
     </div>
 
     <div class="product-list">
-        <div class="product-card">
-            <div class="product-info">
-                <div class="product-image"></div>
-                <div class="product-details">
-                    <h3>Americano</h3>
-                    <p>Rp. 11.000</p>
-                </div>
-            </div>
-            <div class="quantity-control">
-                <button><img src="icons/icon-minus-circle.svg" alt="Minus"></button>
-                <span>0</span>
-                <button><img src="icons/icon-plus-circle.svg" alt="Plus"></button>
-            </div>
-        </div>
+        <!-- Produk akan dimuat secara dinamis oleh JavaScript -->
+    </div>
 
-        <div class="product-card">
-            <div class="product-info">
-                <div class="product-image"></div>
-                <div class="product-details">
-                    <h3>Americano</h3>
-                    <p>Rp. 11.000</p>
-                </div>
-            </div>
-            <div class="quantity-control">
-                <button><img src="icons/icon-minus-circle.svg" alt="Minus"></button>
-                <span>0</span>
-                <button><img src="icons/icon-plus-circle.svg" alt="Plus"></button>
-            </div>
+    <div class="cart-summary">
+        <div class="cart-info">
+            <p>Total</p>
+            <p id="total-amount">Rp. 0</p>
         </div>
-
-        <div class="product-card">
-            <div class="product-info">
-                <div class="product-image"></div>
-                <div class="product-details">
-                    <h3>Americano</h3>
-                    <p>Rp. 11.000</p>
-                </div>
-            </div>
-            <div class="quantity-control">
-                <button><img src="icons/icon-minus-circle.svg" alt="Minus"></button>
-                <span>0</span>
-                <button><img src="icons/icon-plus-circle.svg" alt="Plus"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="product-info">
-                <div class="product-image"></div>
-                <div class="product-details">
-                    <h3>Americano</h3>
-                    <p>Rp. 11.000</p>
-                </div>
-            </div>
-            <div class="quantity-control">
-                <button><img src="icons/icon-minus-circle.svg" alt="Minus"></button>
-                <span>0</span>
-                <button><img src="icons/icon-plus-circle.svg" alt="Plus"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="product-info">
-                <div class="product-image"></div>
-                <div class="product-details">
-                    <h3>Americano</h3>
-                    <p>Rp. 11.000</p>
-                </div>
-            </div>
-            <div class="quantity-control">
-                <button><img src="icons/icon-minus-circle.svg" alt="Minus"></button>
-                <span>0</span>
-                <button><img src="icons/icon-plus-circle.svg" alt="Plus"></button>
-            </div>
-        </div>
+        <button id="btn-process" class="btn-process">Proses Pesanan</button>
     </div>
 
     <div class="navbar">
-        <div class="nav-item">
+        <div class="nav-item active">
             <img src="icons/orders-icon.svg" alt="Orders">
         </div>
         <div class="nav-item">
@@ -113,5 +53,14 @@
             <img src="icons/laporan-icon.svg" alt="Laporan">
         </div>
     </div>
+
+    <!-- Authentication -->
+    <script src="auth.js"></script>
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="kasir.js"></script>
 </body>
 </html>

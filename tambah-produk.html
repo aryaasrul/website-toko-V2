@@ -1,96 +1,128 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ubah Produk</title>
-  <link rel="stylesheet" href="tambah-produk.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Produk</title>
+    <link rel="stylesheet" href="form-produk.css">
+    <link rel="stylesheet" href="animations.css">
 </head>
 <body>
-
-  <!-- HEADER -->
-  <div class="header">
-    <div class="header-left">
-      <button class="back-btn">
-        <img src="icons/Arrow-Left-2.svg" alt="Back">
-      </button>
-      <h1>Tambah Produk</h1>
+    <div class="header">
+        <div class="back-button">
+            <a href="katalog.html">
+                <img src="icons/Arrow-Left-2.svg" alt="Back">
+            </a>
+            <h1>Tambah Produk</h1>
+        </div>
     </div>
-  </div>
 
-  <!-- FORM -->
-  <div class="form-wrapper">
-    <h2>Informasi Produk</h2>
+    <div class="content">
+        <h2>Informasi Produk</h2>
 
-    <div class="form-box">
-      <!-- Upload Foto -->
-      <div class="photo-header">
-        <span>Foto Produk <span class="optional">(Optional)</span></span>
-        <span class="limit">Max. 3 foto</span>
-      </div>
-      <div class="photo-group">
-        <div class="photo-thumb">
-          <img src="icons/close-square.svg" class="photo-close" alt="Close">
+        <div class="form-container">
+            <div class="form-section">
+                <div class="photo-section">
+                    <label>Foto Produk (Optional)</label>
+                    <p class="photo-limit">Max. 3 foto</p>
+                    <div class="photo-upload-container">
+                        <div class="photo-preview empty">
+                            <img src="icons/Plus-square.svg" alt="Camera" class="camera-icon">
+                            <input type="file" id="photo-upload" accept="image/*" class="photo-input">
+                        </div>
+                        <div class="add-photo">
+                            <img src="icons/Plus-square.svg" alt="Add Photo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="nama-produk">Nama Produk</label>
+                <input type="text" id="nama-produk" placeholder="Nama Produk" maxlength="50">
+                <div class="char-counter"><span id="nama-produk-count">0</span>/50</div>
+            </div>
+
+            <div class="form-group">
+                <label for="harga-jual">Harga Jual</label>
+                <input type="text" id="harga-jual" placeholder="Rp 00,00" maxlength="50">
+                <div class="char-counter"><span id="harga-jual-count">0</span>/50</div>
+            </div>
+
+            <div class="form-group">
+                <label for="harga-hpp">Harga Hpp</label>
+                <input type="text" id="harga-hpp" placeholder="Rp 00,00" maxlength="50">
+                <div class="char-counter"><span id="harga-hpp-count">0</span>/50</div>
+            </div>
+
+            <div class="form-group">
+                <div class="kategori-header">
+                    <label>Kategori</label>
+                    <button class="btn-atur-kategori">
+                        <img src="icons/Plus-square.svg" alt="Plus">
+                        Atur
+                    </button>
+                </div>
+                <div class="selected-categories" id="selected-categories">
+                    <div class="category-tag">
+                        Semua Produk
+                        <img src="icons/Close-Square.svg" alt="Remove" class="remove-icon">
+                    </div>
+                    <div class="category-tag">
+                        Espresso Based
+                        <img src="icons/Close-Square.svg" alt="Remove" class="remove-icon">
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-simpan" id="btn-simpan">Simpan</button>
+            </div>
         </div>
-        <div class="photo-add">
-          <img src="icons/Plus-square.svg" alt="Tambah Foto">
-        </div>
-      </div>
-
-      <!-- Form Fields -->
-      <div class="form-group">
-        <label for="nama">Nama Produk</label>
-        <input type="text" id="nama" placeholder="Nama Produk" maxlength="50">
-        <div class="char-count">0/50</div>
-      </div>
-
-      <div class="form-group">
-        <label for="harga-jual">Harga Jual</label>
-        <input type="text" id="harga-jual" placeholder="Rp 00,00" maxlength="50">
-        <div class="char-count">0/50</div>
-      </div>
-
-      <div class="form-group">
-        <label for="harga-hpp">Harga Hpp</label>
-        <input type="text" id="harga-hpp" placeholder="Rp 00,00" maxlength="50">
-        <div class="char-count">0/50</div>
-      </div>
-
-      <!-- Kategori -->
-      <div class="kategori-group">
-        <label>Kategori</label>
-        <div class="kategori-row">
-          <div class="chips">Semua Produk</div>
-          <div class="chips">Espresso Based</div>
-          <button class="atur-btn">
-            <img src="icons/icon-plus-input-manual.svg" alt="Atur">
-            Atur
-          </button>
-        </div>
-      </div>
-
-      <!-- Simpan -->
-      <div class="simpan-row">
-        <button class="simpan-btn">Simpan</button>
-        <button class="hapus-btn">
-          <img src="icons/delete.svg" alt="Hapus">
-        </button>
-      </div>
     </div>
-  </div>
 
-  <!-- NAVBAR -->
-  <div class="navbar">
-    <a class="nav-item" href="kasir.html">
-      <img src="icons/orders-icon.svg" alt="Kasir">
-    </a>
-    <a class="nav-item active" href="katalog.html">
-      <img src="icons/database-icon.svg" alt="Katalog">
-    </a>
-    <a class="nav-item" href="riwayat.html">
-      <img src="icons/laporan-icon.svg" alt="Laporan">
-    </a>
-  </div>
+    <!-- Kategori Modal (hidden by default) -->
+    <div id="kategori-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Pilih Kategori</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="kategori-list" id="kategori-list">
+                    <!-- Kategori akan dimuat secara dinamis oleh JavaScript -->
+                </div>
+                <div class="form-group">
+                    <label for="new-kategori">Tambah Kategori Baru</label>
+                    <div class="add-kategori-input">
+                        <input type="text" id="new-kategori" placeholder="Nama Kategori">
+                        <button id="btn-add-kategori">Tambah</button>
+                    </div>
+                </div>
+                <button class="btn-terapkan-kategori" id="btn-terapkan-kategori">Terapkan</button>
+            </div>
+        </div>
+    </div>
 
+    <div class="navbar">
+        <div class="nav-item">
+            <img src="icons/orders-icon.svg" alt="Orders">
+        </div>
+        <div class="nav-item active">
+            <img src="icons/database-icon.svg" alt="Database">
+        </div>
+        <div class="nav-item">
+            <img src="icons/laporan-icon.svg" alt="Laporan">
+        </div>
+    </div>
+
+    <!-- Authentication -->
+    <script src="auth.js"></script>
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="form-produk.js"></script>
 </body>
 </html>
