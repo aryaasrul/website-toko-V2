@@ -5,18 +5,45 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 // Data global
 let orders = [];
+let expenses = [];
 let groupedOrders = {};
+let groupedExpenses = {};
 let currentFilter = 'Seminggu Terakhir'; // Default filter
+let activeTab = 'pemasukan'; // Default tab
 
 // DOM Elements
 document.addEventListener('DOMContentLoaded', function() {
     const orderListElement = document.querySelector('.order-list');
+    const expenseListElement = document.querySelector('.expense-list');
     const filterBtn = document.querySelector('.filter-btn');
     const refreshBtn = document.querySelector('.refresh-btn');
     const periodBtn = document.querySelector('.period-btn');
     const filterDropdown = document.querySelector('.filter-dropdown');
+    const btnAddExpense = document.getElementById('btn-add-expense');
+    const tabPemasukan = document.getElementById('tab-pemasukan');
+    const tabPengeluaran = document.getElementById('tab-pengeluaran');
+    const pemasukanContent = document.getElementById('pemasukan-content');
+    const pengeluaranContent = document.getElementById('pengeluaran-content');
     
-    // Event Listeners
+    // Event Listeners untuk tabs
+    if (tabPemasukan && tabPengeluaran) {
+        tabPemasukan.addEventListener('click', function() {
+            setActiveTab('pemasukan');
+        });
+        
+        tabPengeluaran.addEventListener('click', function() {
+            setActiveTab('pengeluaran');
+        });
+    }
+    
+    // Event Listener untuk tombol tambah pengeluaran
+    if (btnAddExpense) {
+        btnAddExpense.addEventListener('click', function() {
+            goToAddExpense();
+        });
+    }
+    
+    // Event Listeners yang sudah ada
     if (filterBtn) {
         filterBtn.addEventListener('click', function() {
             openDatePicker();
@@ -43,7 +70,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentFilter = this.textContent.trim();
                 updatePeriodButtonText(currentFilter);
                 toggleFilterDropdown();
-                fetchOrders(currentFilter);
+                
+                // Ambil data sesuai dengan tab yang aktif
+                if (activeTab === 'pemasukan') {
+                    fetchOrders(currentFilter);
+                } else {
+                    fetchExpenses(currentFilter);
+                }
             });
         });
     }
@@ -54,6 +87,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (orderHeader) {
             const orderItem = orderHeader.closest('.order-item');
             toggleOrderItem(orderItem);
+        }
+        
+        const expenseHeader = e.target.closest('.expense-header');
+        if (expenseHeader) {
+            const expenseItem = expenseHeader.closest('.expense-item');
+            toggleExpenseItem(expenseItem);
         }
     });
     
@@ -87,11 +126,41 @@ document.addEventListener('DOMContentLoaded', function() {
     init();
 });
 
+// Fungsi untuk mengatur tab aktif
+function setActiveTab(tab) {
+    activeTab = tab;
+    
+    const tabPemasukan = document.getElementById('tab-pemasukan');
+    const tabPengeluaran = document.getElementById('tab-pengeluaran');
+    const pemasukanContent = document.getElementById('pemasukan-content');
+    const pengeluaranContent = document.getElementById('pengeluaran-content');
+    
+    if (tab === 'pemasukan') {
+        tabPemasukan.classList.add('active');
+        tabPengeluaran.classList.remove('active');
+        pemasukanContent.style.display = 'block';
+        pengeluaranContent.style.display = 'none';
+        fetchOrders(currentFilter);
+    } else {
+        tabPemasukan.classList.remove('active');
+        tabPengeluaran.classList.add('active');
+        pemasukanContent.style.display = 'none';
+        pengeluaranContent.style.display = 'block';
+        fetchExpenses(currentFilter);
+    }
+}
+
 // Fungsi Inisialisasi
 async function init() {
     console.log("Initializing riwayat...");
     updatePeriodButtonText(currentFilter);
     await fetchOrders(currentFilter);
+    // Jangan perlu mengambil expenses di awal karena tab defaultnya adalah pemasukan
+}
+
+// Fungsi navigasi ke halaman tambah pengeluaran
+function goToAddExpense() {
+    window.location.href = 'tambah-pengeluaran.html';
 }
 
 // Function to update period button text
@@ -119,7 +188,11 @@ function openDatePicker() {
 // Function to refresh data
 function refreshData() {
     console.log("Refreshing data...");
-    fetchOrders(currentFilter);
+    if (activeTab === 'pemasukan') {
+        fetchOrders(currentFilter);
+    } else {
+        fetchExpenses(currentFilter);
+    }
 }
 
 // Function to toggle order item expansion
@@ -164,6 +237,48 @@ function toggleOrderItem(orderItem) {
     }
 }
 
+// Function to toggle expense item expansion (similar to order item)
+function toggleExpenseItem(expenseItem) {
+    if (!expenseItem) return;
+    
+    const isExpanded = expenseItem.classList.contains('expanded');
+    const toggleBtn = expenseItem.querySelector('.toggle-btn img');
+    
+    if (isExpanded) {
+        expenseItem.classList.remove('expanded');
+        if (toggleBtn) toggleBtn.src = 'icons/Arrow-Down-2.svg';
+        
+        // Hide details
+        const details = expenseItem.querySelector('.expense-details');
+        const actions = expenseItem.querySelector('.expense-actions');
+        
+        if (details) details.style.display = 'none';
+        if (actions) actions.style.display = 'none';
+        
+        // Change summary layout
+        const summary = expenseItem.querySelector('.expense-summary');
+        if (summary) {
+            summary.classList.add('collapsed');
+        }
+    } else {
+        expenseItem.classList.add('expanded');
+        if (toggleBtn) toggleBtn.src = 'icons/Arrow-Up-2.svg';
+        
+        // Show details if they exist
+        const details = expenseItem.querySelector('.expense-details');
+        const actions = expenseItem.querySelector('.expense-actions');
+        
+        if (details) details.style.display = 'block';
+        if (actions) actions.style.display = 'flex';
+        
+        // Change summary layout
+        const summary = expenseItem.querySelector('.expense-summary');
+        if (summary) {
+            summary.classList.remove('collapsed');
+        }
+    }
+}
+
 // Fungsi untuk mengambil dan mengolah data pesanan dari Supabase
 async function fetchOrders(filterType = 'Seminggu Terakhir') {
     try {
@@ -188,7 +303,7 @@ async function fetchOrders(filterType = 'Seminggu Terakhir') {
         console.log("Raw orders data:", data);
         
         if (!data || data.length === 0) {
-            renderEmptyState();
+            renderEmptyState('order-list');
             return;
         }
         
@@ -200,7 +315,47 @@ async function fetchOrders(filterType = 'Seminggu Terakhir') {
         
     } catch (error) {
         console.error("Error in fetchOrders:", error);
-        renderErrorState();
+        renderErrorState('order-list');
+    }
+}
+
+// Fungsi untuk mengambil dan mengolah data pengeluaran dari Supabase
+async function fetchExpenses(filterType = 'Seminggu Terakhir') {
+    try {
+        console.log("Fetching expenses with filter:", filterType);
+        
+        // Get the date range based on filter type
+        const dateRange = getDateRangeFromFilter(filterType);
+        
+        // Fetch expenses from Supabase
+        const { data, error } = await supabase
+            .from('expenses')
+            .select('*')
+            .gte('date', dateRange.startDate.toISOString())
+            .lte('date', dateRange.endDate.toISOString())
+            .order('date', { ascending: false });
+            
+        if (error) {
+            console.error('Error fetching expenses:', error);
+            return;
+        }
+        
+        console.log("Raw expenses data:", data);
+        
+        if (!data || data.length === 0) {
+            renderEmptyState('expense-list');
+            return;
+        }
+        
+        // Process and group expenses by date
+        processExpensesData(data);
+        
+        // Render the grouped expenses
+        renderExpensesList();
+        
+    } catch (error) {
+        console.error("Error in fetchExpenses:", error);
+        renderErrorState('expense-list');
     }
 }
 
@@ -275,10 +430,33 @@ function processOrdersData(orders) {
         
         groupedOrders[dateString].orders.push(order);
         groupedOrders[dateString].totalAmount += order.price * order.quantity;
-        groupedOrders[dateString].totalProfit += (order.price - order.hpp) * order.quantity;
+        groupedOrders[dateString].totalProfit += (order.price - (order.hpp || 0)) * order.quantity;
     });
     
     console.log("Grouped orders:", groupedOrders);
+}
+
+// Process and group expenses by date
+function processExpensesData(expenses) {
+    groupedExpenses = {};
+    
+    expenses.forEach(expense => {
+        const expenseDate = new Date(expense.date);
+        const dateString = expenseDate.toISOString().split('T')[0]; // YYYY-MM-DD
+        
+        if (!groupedExpenses[dateString]) {
+            groupedExpenses[dateString] = {
+                date: expenseDate,
+                expenses: [],
+                totalAmount: 0
+            };
+        }
+        
+        groupedExpenses[dateString].expenses.push(expense);
+        groupedExpenses[dateString].totalAmount += expense.amount || 0;
+    });
+    
+    console.log("Grouped expenses:", groupedExpenses);
 }
 
 // Render the orders list
@@ -292,7 +470,7 @@ function renderOrdersList() {
     const sortedDates = Object.keys(groupedOrders).sort().reverse();
     
     if (sortedDates.length === 0) {
-        renderEmptyState();
+        renderEmptyState('order-list');
         return;
     }
     
@@ -300,6 +478,28 @@ function renderOrdersList() {
         const dateData = groupedOrders[dateString];
         const orderItem = createOrderItemElement(dateData, index === 0); // Expand first item
         orderListElement.appendChild(orderItem);
+    });
+}
+
+// Render the expenses list
+function renderExpensesList() {
+    const expenseListElement = document.querySelector('.expense-list');
+    if (!expenseListElement) return;
+    
+    expenseListElement.innerHTML = '';
+    
+    // Convert object to array and sort by date (newest first)
+    const sortedDates = Object.keys(groupedExpenses).sort().reverse();
+    
+    if (sortedDates.length === 0) {
+        renderEmptyState('expense-list');
+        return;
+    }
+    
+    sortedDates.forEach((dateString, index) => {
+        const dateData = groupedExpenses[dateString];
+        const expenseItem = createExpenseItemElement(dateData, index === 0); // Expand first item
+        expenseListElement.appendChild(expenseItem);
     });
 }
 
@@ -395,24 +595,118 @@ function createOrderItemElement(dateData, isExpanded = false) {
     return orderItem;
 }
 
-// Render empty state
-function renderEmptyState() {
-    const orderListElement = document.querySelector('.order-list');
-    if (!orderListElement) return;
+// Create an expense item element
+function createExpenseItemElement(dateData, isExpanded = false) {
+    const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     
-    orderListElement.innerHTML = `
+    const date = dateData.date;
+    const dayName = dayNames[date.getDay()];
+    const day = date.getDate();
+    const month = monthNames[date.getMonth()];
+    const year = date.getFullYear();
+    const formattedDate = `${dayName}, ${day} ${month} ${year}`;
+    
+    const expenseItem = document.createElement('div');
+    expenseItem.className = 'expense-item' + (isExpanded ? ' expanded' : '');
+    
+    // Create the expense header
+    const expenseHeader = document.createElement('div');
+    expenseHeader.className = 'expense-header';
+    expenseHeader.innerHTML = `
+        <div class="date">${formattedDate}</div>
+        <div class="toggle-btn">
+            <img src="icons/${isExpanded ? 'Arrow-Up-2' : 'Arrow-Down-2'}.svg" alt="${isExpanded ? 'Collapse' : 'Expand'}">
+        </div>
+    `;
+    
+    // Create the expense summary
+    const expenseSummary = document.createElement('div');
+    expenseSummary.className = 'expense-summary' + (isExpanded ? '' : ' collapsed');
+    
+    const totalAmount = formatCurrency(dateData.totalAmount);
+    
+    // Hardcoded sisa saldo untuk contoh, di implementasi sebenarnya ini akan dihitung
+    const sisaSaldo = formatCurrency(45000 - dateData.totalAmount);
+    
+    expenseSummary.innerHTML = `
+        <div class="summary-row">
+            <div class="summary-label">Total Pengeluaran</div>
+            <div class="summary-value">-${totalAmount}</div>
+        </div>
+        <div class="summary-row">
+            <div class="summary-label">Sisa saldo</div>
+            <div class="summary-value">${sisaSaldo}</div>
+        </div>
+    `;
+    
+    // Create expense details (only for expanded items)
+    const expenseDetails = document.createElement('div');
+    expenseDetails.className = 'expense-details';
+    expenseDetails.style.display = isExpanded ? 'block' : 'none';
+    
+    // Group identical items
+    const groupedItems = {};
+    dateData.expenses.forEach(expense => {
+        if (!groupedItems[expense.name]) {
+            groupedItems[expense.name] = {
+                name: expense.name,
+                amount: 0,
+                count: 0
+            };
+        }
+        groupedItems[expense.name].amount += expense.amount || 0;
+        groupedItems[expense.name].count += 1;
+    });
+    
+    // Add each item to details
+    Object.values(groupedItems).forEach(item => {
+        const detailItem = document.createElement('div');
+        detailItem.className = 'expense-detail-item';
+        detailItem.innerHTML = `
+            <div class="item-name">${item.count}x ${item.name}</div>
+            <div class="item-price">-${formatCurrency(item.amount)}</div>
+        `;
+        expenseDetails.appendChild(detailItem);
+    });
+    
+    // Create expense actions (share button)
+    const expenseActions = document.createElement('div');
+    expenseActions.className = 'expense-actions';
+    expenseActions.style.display = isExpanded ? 'flex' : 'none';
+    expenseActions.innerHTML = `
+        <button class="share-btn">
+            <img src="icons/Download.svg" alt="Share">
+        </button>
+    `;
+    
+    // Assemble the expense item
+    expenseItem.appendChild(expenseHeader);
+    expenseItem.appendChild(expenseSummary);
+    expenseItem.appendChild(expenseDetails);
+    expenseItem.appendChild(expenseActions);
+    
+    return expenseItem;
+}
+
+// Render empty state
+function renderEmptyState(containerClass) {
+    const containerElement = document.querySelector(`.${containerClass}`);
+    if (!containerElement) return;
+    
+    containerElement.innerHTML = `
         <div style="text-align: center; padding: 50px 20px; color: #666;">
-            <p>Tidak ada transaksi untuk periode ini</p>
+            <p>${containerClass === 'order-list' ? 'Tidak ada transaksi' : 'Tidak ada pengeluaran'} untuk periode ini</p>
         </div>
     `;
 }
 
 // Render error state
-function renderErrorState() {
-    const orderListElement = document.querySelector('.order-list');
-    if (!orderListElement) return;
+function renderErrorState(containerClass) {
+    const containerElement = document.querySelector(`.${containerClass}`);
+    if (!containerElement) return;
     
-    orderListElement.innerHTML = `
+    containerElement.innerHTML = `
         <div style="text-align: center; padding: 50px 20px; color: #666;">
             <p>Terjadi kesalahan saat memuat data</p>
             <button id="retry-btn" style="margin-top: 15px; padding: 8px 16px; background-color: #000; color: #fff; border: none; border-radius: 8px; cursor: pointer;">
@@ -423,7 +717,13 @@ function renderErrorState() {
     
     const retryBtn = document.getElementById('retry-btn');
     if (retryBtn) {
-        retryBtn.addEventListener('click', () => fetchOrders(currentFilter));
+        retryBtn.addEventListener('click', () => {
+            if (containerClass === 'order-list') {
+                fetchOrders(currentFilter);
+            } else {
+                fetchExpenses(currentFilter);
+            }
+        });
     }
 }
 

@@ -22,86 +22,27 @@
         </button>
     </div>
 
-    <div class="order-list">
-        <!-- Accordion items will be populated by JavaScript -->
+    <!-- Tab buttons untuk Pemasukan dan Pengeluaran -->
+    <div class="tab-container">
+        <button class="tab-btn active" id="tab-pemasukan">Pemasukan</button>
+        <button class="tab-btn" id="tab-pengeluaran">Pengeluaran</button>
+    </div>
 
-        <!-- Expanded item example -->
-        <div class="order-item expanded">
-            <div class="order-header">
-                <div class="date">Selasa, 10 Mei 2025</div>
-                <div class="toggle-btn">
-                    <img src="icons/Arrow-Up-2.svg" alt="Collapse">
-                </div>
-            </div>
-            <div class="order-summary">
-                <div class="summary-row">
-                    <div class="summary-label">Total Transaksi</div>
-                    <div class="summary-value">+Rp 135.000</div>
-                </div>
-                <div class="summary-row">
-                    <div class="summary-label">Total Laba</div>
-                    <div class="summary-value">+Rp 45.000</div>
-                </div>
-            </div>
-            <div class="order-details">
-                <div class="order-detail-item">
-                    <div class="item-name">1x Latte</div>
-                    <div class="item-price">+Rp 135.000</div>
-                </div>
-                <div class="order-detail-item">
-                    <div class="item-name">1x Salted Caramel Latte</div>
-                    <div class="item-price">+Rp 135.000</div>
-                </div>
-                <div class="order-detail-item">
-                    <div class="item-name">1x Americano</div>
-                    <div class="item-price">+Rp 135.000</div>
-                </div>
-            </div>
-            <div class="order-actions">
-                <button class="share-btn">
-                    <img src="icons/Download.svg" alt="Share">
-                </button>
-            </div>
+    <!-- Pemasukan tab content (default visible) -->
+    <div class="tab-content" id="pemasukan-content">
+        <div class="order-list">
+            <!-- Accordion items will be populated by JavaScript -->
         </div>
+    </div>
 
-        <!-- Collapsed item examples -->
-        <div class="order-item">
-            <div class="order-header">
-                <div class="date">Senin, 09 Mei 2025</div>
-                <div class="toggle-btn">
-                    <img src="icons/Arrow-Down-2.svg" alt="Expand">
-                </div>
-            </div>
-            <div class="order-summary collapsed">
-                <div class="summary-row">
-                    <div class="summary-label">Total</div>
-                    <div class="summary-value">+Rp 135.000</div>
-                </div>
-                <div class="summary-row">
-                    <div class="summary-label">Laba</div>
-                    <div class="summary-value">+Rp 135.000</div>
-                </div>
-            </div>
+    <!-- Pengeluaran tab content (default hidden) -->
+    <div class="tab-content" id="pengeluaran-content" style="display: none;">
+        <div class="expense-list">
+            <!-- Pengeluaran items will be populated by JavaScript -->
         </div>
-
-        <div class="order-item">
-            <div class="order-header">
-                <div class="date">Minggu, 08 Mei 2025</div>
-                <div class="toggle-btn">
-                    <img src="icons/Arrow-Down-2.svg" alt="Expand">
-                </div>
-            </div>
-            <div class="order-summary collapsed">
-                <div class="summary-row">
-                    <div class="summary-label">Total</div>
-                    <div class="summary-value">+Rp 135.000</div>
-                </div>
-                <div class="summary-row">
-                    <div class="summary-label">Laba</div>
-                    <div class="summary-value">+Rp 135.000</div>
-                </div>
-            </div>
-        </div>
+        <button id="btn-add-expense" class="btn-add-expense">
+            <img src="icons/Plus-square.svg" alt="Add">
+        </button>
     </div>
 
     <div class="filter-period">

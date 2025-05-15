@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Pengeluaran</title>
+    <link rel="stylesheet" href="tambah-pengeluaran.css">
+    <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+    <div class="header">
+        <div class="back-button">
+            <a href="riwayat.html">
+                <img src="icons/Arrow-Left-2.svg" alt="Back">
+            </a>
+            <h1>Tambah Pengeluaran</h1>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>Detail Pengeluaran</h2>
+
+        <div class="form-container">
+            <div class="form-group">
+                <label for="tanggal">Pilih Tanggal</label>
+                <div class="date-input">
+                    <img src="icons/Calendar.svg" alt="Calendar">
+                    <input type="date" id="tanggal" name="tanggal">
+                </div>
+            </div>
+
+            <div class="expense-summary">
+                <div class="summary-row">
+                    <div class="summary-label">Total Pengeluaran</div>
+                    <div class="summary-value" id="total-pengeluaran">Rp 0</div>
+                </div>
+                <div class="summary-row">
+                    <div class="summary-label">Sisa saldo</div>
+                    <div class="summary-value" id="sisa-saldo">Rp 45.000</div>
+                </div>
+            </div>
+
+            <div class="expense-items" id="expense-items">
+                <!-- Item pertama (defaultnya satu) -->
+                <div class="expense-item">
+                    <div class="item-row">
+                        <div class="item-name">
+                            <span>1x</span>
+                            <input type="text" class="item-input" placeholder="Nama Item">
+                        </div>
+                        <div class="item-price">
+                            <input type="text" class="price-input" placeholder="Rp 00.00">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="add-item-container">
+                <button id="btn-add-item" class="btn-add-item">
+                    <img src="icons/Plus-square.svg" alt="Add">
+                    <span>Tambah Item</span>
+                </button>
+            </div>
+
+            <div class="button-group">
+                <button id="btn-simpan" class="btn-simpan">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="navbar">
+        <div class="nav-item">
+            <img src="icons/orders-icon.svg" alt="Orders">
+        </div>
+        <div class="nav-item">
+            <img src="icons/database-icon.svg" alt="Database">
+        </div>
+        <div class="nav-item active">
+            <img src="icons/laporan-icon.svg" alt="Laporan">
+        </div>
+    </div>
+
+    <!-- Authentication -->
+    <script src="auth.js"></script>
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="tambah-pengeluaran.js"></script>
+</body>
+</html>
