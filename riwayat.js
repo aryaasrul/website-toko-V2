@@ -10,6 +10,7 @@ let groupedOrders = {};
 let groupedExpenses = {};
 let currentFilter = 'Seminggu Terakhir'; // Default filter
 let activeTab = 'pemasukan'; // Default tab
+let currentBalance = 0; // Saldo saat ini
 
 // DOM Elements
 document.addEventListener('DOMContentLoaded', function() {
@@ -126,6 +127,58 @@ document.addEventListener('DOMContentLoaded', function() {
     init();
 });
 
+// Fungsi untuk menghitung saldo saat ini berdasarkan semua transaksi
+async function calculateCurrentBalance() {
+    try {
+        console.log("Calculating current balance...");
+        
+        // Ambil semua pemasukan (orders)
+        const { data: ordersData, error: ordersError } = await supabase
+            .from('orders')
+            .select('price, quantity');
+            
+        if (ordersError) {
+            console.error('Error fetching orders for balance:', ordersError);
+            return 0; // Default jika terjadi error
+        }
+        
+        // Ambil semua pengeluaran (expenses)
+        const { data: expensesData, error: expensesError } = await supabase
+            .from('expenses')
+            .select('amount');
+            
+        if (expensesError) {
+            console.error('Error fetching expenses for balance:', expensesError);
+            return 0; // Default jika terjadi error
+        }
+        
+        // Hitung total pemasukan
+        let totalIncome = 0;
+        if (ordersData && ordersData.length > 0) {
+            totalIncome = ordersData.reduce((sum, order) => {
+                return sum + (order.price * (order.quantity || 1));
+            }, 0);
+        }
+        
+        // Hitung total pengeluaran
+        let totalExpense = 0;
+        if (expensesData && expensesData.length > 0) {
+            totalExpense = expensesData.reduce((sum, expense) => {
+                return sum + (expense.amount || 0);
+            }, 0);
+        }
+        
+        // Hitung saldo saat ini
+        const currentBalance = totalIncome - totalExpense;
+        console.log(`Current balance calculated: Income=${totalIncome}, Expense=${totalExpense}, Balance=${currentBalance}`);
+        
+        return currentBalance;
+    } catch (error) {
+        console.error("Error calculating balance:", error);
+        return 0; // Default jika terjadi error
+    }
+}
+
 // Fungsi untuk mengatur tab aktif
 function setActiveTab(tab) {
     activeTab = tab;
@@ -153,6 +206,11 @@ function setActiveTab(tab) {
 // Fungsi Inisialisasi
 async function init() {
     console.log("Initializing riwayat...");
+    
+    // Hitung saldo saat ini
+    currentBalance = await calculateCurrentBalance();
+    console.log("Current balance:", currentBalance);
+    
     updatePeriodButtonText(currentFilter);
     await fetchOrders(currentFilter);
     // Jangan perlu mengambil expenses di awal karena tab defaultnya adalah pemasukan
@@ -626,8 +684,8 @@ function createExpenseItemElement(dateData, isExpanded = false) {
     
     const totalAmount = formatCurrency(dateData.totalAmount);
     
-    // Hardcoded sisa saldo untuk contoh, di implementasi sebenarnya ini akan dihitung
-    const sisaSaldo = formatCurrency(45000 - dateData.totalAmount);
+    // Gunakan saldo yang sudah dihitung sebelumnya
+    const sisaSaldo = formatCurrency(currentBalance);
     
     expenseSummary.innerHTML = `
         <div class="summary-row">

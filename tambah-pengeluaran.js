@@ -6,16 +6,22 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 // Data global
 let items = [{ name: '', price: 0 }]; // Defaultnya satu item kosong
 let totalPengeluaran = 0;
-let sisaSaldo = 45000; // Nilai default atau bisa diambil dari kalkulasi pendapatan - pengeluaran
+let sisaSaldo = 0; // Ubah dari nilai statis 45000
 
 // DOM Elements
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     const tanggalInput = document.getElementById('tanggal');
     const btnAddItem = document.getElementById('btn-add-item');
     const btnSimpan = document.getElementById('btn-simpan');
     const expenseItemsContainer = document.getElementById('expense-items');
     const totalPengeluaranElement = document.getElementById('total-pengeluaran');
     const sisaSaldoElement = document.getElementById('sisa-saldo');
+
+    // Ambil saldo saat ini
+    sisaSaldo = await getCurrentBalance();
+    if (sisaSaldoElement) {
+        sisaSaldoElement.textContent = formatCurrency(sisaSaldo);
+    }
 
     // Set tanggal default (hari ini)
     const today = new Date();
@@ -54,6 +60,58 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Fungsi untuk mengambil saldo saat ini
+async function getCurrentBalance() {
+    try {
+        console.log("Fetching current balance...");
+        
+        // Ambil semua pemasukan (orders)
+        const { data: ordersData, error: ordersError } = await supabase
+            .from('orders')
+            .select('price, quantity');
+            
+        if (ordersError) {
+            console.error('Error fetching orders for balance:', ordersError);
+            return 0;
+        }
+        
+        // Ambil semua pengeluaran (expenses)
+        const { data: expensesData, error: expensesError } = await supabase
+            .from('expenses')
+            .select('amount');
+            
+        if (expensesError) {
+            console.error('Error fetching expenses for balance:', expensesError);
+            return 0;
+        }
+        
+        // Hitung total pemasukan
+        let totalIncome = 0;
+        if (ordersData && ordersData.length > 0) {
+            totalIncome = ordersData.reduce((sum, order) => {
+                return sum + (order.price * (order.quantity || 1));
+            }, 0);
+        }
+        
+        // Hitung total pengeluaran
+        let totalExpense = 0;
+        if (expensesData && expensesData.length > 0) {
+            totalExpense = expensesData.reduce((sum, expense) => {
+                return sum + (expense.amount || 0);
+            }, 0);
+        }
+        
+        // Hitung saldo saat ini
+        const currentBalance = totalIncome - totalExpense;
+        console.log(`Current balance: Income=${totalIncome}, Expense=${totalExpense}, Balance=${currentBalance}`);
+        
+        return currentBalance;
+    } catch (error) {
+        console.error("Error fetching balance:", error);
+        return 0;
+    }
+}
 
 // Setup item awal
 function setupInitialItem() {
@@ -138,8 +196,8 @@ function updateTotals() {
     
     // Hitung dan update sisa saldo
     if (sisaSaldoElement) {
-        sisaSaldo = 45000 - totalPengeluaran; // Contoh saldo awal adalah 45000
-        sisaSaldoElement.textContent = formatCurrency(sisaSaldo);
+        const updatedSisaSaldo = sisaSaldo - totalPengeluaran;
+        sisaSaldoElement.textContent = formatCurrency(updatedSisaSaldo);
     }
 }
 
@@ -157,6 +215,15 @@ async function saveExpense() {
     
     if (validItems.length === 0) {
         alert('Masukkan setidaknya satu item pengeluaran');
+        return;
+    }
+    
+    // Hitung total pengeluaran
+    const totalAmount = validItems.reduce((sum, item) => sum + item.price, 0);
+    
+    // Verifikasi saldo cukup
+    if (totalAmount > sisaSaldo) {
+        alert('Total pengeluaran melebihi saldo yang tersedia');
         return;
     }
     

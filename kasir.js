@@ -224,6 +224,7 @@ function createProductElement(product) {
     // Pastikan properti yang dibutuhkan ada
     const name = product.name || 'Produk Tanpa Nama';
     const price = product.price || 0;
+    const hpp = product.hpp || 0; // Pastikan hpp memiliki nilai default 0 jika tidak ada
     const id = product.id || Date.now(); // Fallback ke timestamp jika tidak ada ID
     
     productCard.innerHTML = `
@@ -265,6 +266,7 @@ function incrementQuantity(product) {
         cart[existingProductIndex].quantity += 1;
     } else {
         // Jika belum ada, tambahkan ke cart
+        // Pastikan hpp memiliki nilai (default 0 jika tidak ada)
         cart.push({
             id: product.id,
             name: product.name,
@@ -319,8 +321,18 @@ function calculateTotal() {
     totalProfit = 0;
 
     cart.forEach(item => {
-        totalAmount += item.price * item.quantity;
-        totalProfit += (item.price - (item.hpp || 0)) * item.quantity;
+        // Pastikan quantity ada dan valid
+        const quantity = item.quantity || 0;
+        
+        // Pastikan price ada dan valid
+        const price = item.price || 0;
+        
+        // Pastikan hpp ada dan valid (default ke 0 jika tidak ada)
+        const hpp = item.hpp || 0;
+        
+        // Hitung total dan profit
+        totalAmount += price * quantity;
+        totalProfit += (price - hpp) * quantity;
     });
 
     // Jika ada elemen total, update
@@ -405,8 +417,12 @@ async function processOrder() {
     try {
         console.log("Processing order:", cart);
         
+        // Buat ID transaksi unik untuk mengelompokkan item pesanan
+        const transactionId = 'txn_' + Date.now();
+        
         // Siapkan data untuk disimpan ke database
         const orderItems = cart.map(item => ({
+            transaction_id: transactionId,
             name: item.name,
             quantity: item.quantity,
             price: item.price,
