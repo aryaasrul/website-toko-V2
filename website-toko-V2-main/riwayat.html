@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Penjualan</title>
+    <link rel="stylesheet" href="riwayat.css">
+    <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Laporan Penjualan</h1>
+    </div>
+
+    <div class="filter-container">
+        <button class="filter-btn">
+            <img src="icons/Filter-2.svg" alt="Filter">
+            <span>Filter Tanggal/Waktu</span>
+        </button>
+        <button class="refresh-btn">
+            <img src="icons/Download.svg" alt="Download">
+        </button>
+    </div>
+
+    <!-- Tab buttons untuk Pemasukan dan Pengeluaran -->
+    <div class="tab-container">
+        <button class="tab-btn active" id="tab-pemasukan">Pemasukan</button>
+        <button class="tab-btn" id="tab-pengeluaran">Pengeluaran</button>
+    </div>
+
+    <!-- Pemasukan tab content (default visible) -->
+    <div class="tab-content" id="pemasukan-content">
+        <div class="order-list">
+            <!-- Accordion items will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Pengeluaran tab content (default hidden) -->
+    <div class="tab-content" id="pengeluaran-content" style="display: none;">
+        <div class="expense-list">
+            <!-- Pengeluaran items will be populated by JavaScript -->
+        </div>
+        <button id="btn-add-expense" class="btn-add-expense">
+            <img src="icons/Plus-square.svg" alt="Add">
+        </button>
+    </div>
+
+    <div class="filter-period">
+        <button class="period-btn">
+            <img src="icons/Calendar.svg" alt="Calendar">
+            <span>Seminggu Terakhir</span>
+            <img src="icons/Arrow-Down-2.svg" alt="Expand">
+        </button>
+    </div>
+
+    <!-- Filter dropdown (hidden by default) -->
+    <div class="filter-dropdown">
+        <div class="filter-option">Hari Ini</div>
+        <div class="filter-option">Kemarin</div>
+        <div class="filter-option">Seminggu Terakhir</div>
+        <div class="filter-option">Bulan Ini</div>
+        <div class="filter-option">Bulan Lalu</div>
+        <div class="filter-option">Kustom</div>
+    </div>
+
+    <div class="navbar">
+        <div class="nav-item">
+            <img src="icons/orders-icon.svg" alt="Orders">
+        </div>
+        <div class="nav-item">
+            <img src="icons/database-icon.svg" alt="Database">
+        </div>
+        <div class="nav-item active">
+            <img src="icons/laporan-icon.svg" alt="Laporan">
+        </div>
+    </div>
+
+    <!-- Authentication -->
+    <script src="auth.js"></script>
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="riwayat.js"></script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+@font-face {
+    font-family: 'Axiforma';
+    src: url('font/Axiforma-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Axiforma', sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    padding-bottom: 70px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* Filter Section */
+.filter-container {
+    display: flex;
+    align-items: center;
+    margin: 0 25px 15px;
+}
+
+.filter-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background-color: #e8e8e8;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-right: 10px;
+    font-size: 16px;
+    color: #666;
+    text-align: left;
+    cursor: pointer;
+}
+
+.filter-btn img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.refresh-btn {
+    width: 40px;
+    height: 40px;
+    background-color: #e8e8e8;
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.refresh-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Tab Container Styles */
+.tab-container {
+    display: flex;
+    margin: 0 25px 15px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px 0;
+    background-color: #e8e8e8;
+    border: none;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.tab-btn:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.tab-btn:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.tab-btn.active {
+    background-color: #000;
+    color: #fff;
+}
+
+/* Order List */
+.order-list {
+    margin: 0 25px;
+}
+
+.order-item {
+    background-color: #e8e8e8;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+}
+
+.date {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+}
+
+.toggle-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.order-summary {
+    padding: 0 15px;
+    border-top: 1px solid #ddd;
+}
+
+.order-summary.collapsed {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.summary-label {
+    color: #666;
+}
+
+.summary-value {
+    font-weight: bold;
+    color: #000;
+}
+
+.order-details {
+    padding: 0 15px;
+    border-top: 1px solid #ddd;
+}
+
+.order-detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    color: #666;
+}
+
+.order-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px;
+}
+
+.share-btn {
+    width: 36px;
+    height: 36px;
+    background-color: #fff;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.share-btn img {
+    width: 18px;
+    height: 18px;
+}
+
+/* Expense List Styles */
+.expense-list {
+    margin: 0 25px;
+    margin-bottom: 70px; /* Memberi ruang untuk tombol tambah */
+}
+
+/* Expense Item Styles - Mirip dengan Order Item */
+.expense-item {
+    background-color: #e8e8e8;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.expense-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+}
+
+.expense-summary {
+    padding: 0 15px;
+    border-top: 1px solid #ddd;
+}
+
+.expense-summary.collapsed {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.expense-details {
+    padding: 0 15px;
+    border-top: 1px solid #ddd;
+}
+
+.expense-detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    color: #666;
+}
+
+.expense-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px;
+}
+
+/* Add Expense Button */
+.btn-add-expense {
+    position: fixed;
+    bottom: 80px;
+    right: 25px;
+    width: 50px;
+    height: 50px;
+    background-color: #000;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 90;
+}
+
+.btn-add-expense img {
+    width: 24px;
+    height: 24px;
+    filter: invert(100%); /* Untuk membuat ikon menjadi putih */
+}
+
+/* Filter Period */
+.filter-period {
+    position: relative;
+    margin: 20px 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.period-btn {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+.period-btn img:first-child {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+}
+
+.period-btn img:last-child {
+    width: 14px;
+    height: 14px;
+    margin-left: 10px;
+}
+
+/* Filter Dropdown */
+.filter-dropdown {
+    display: none;
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    width: 80%;
+    z-index: 100;
+}
+
+.filter-dropdown.show {
+    display: block;
+}
+
+.filter-option {
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.filter-option:not(:last-child) {
+    border-bottom: 1px solid #eee;
+}
+
+.filter-option:hover {
+    background-color: #f5f5f5;
+}
+
+/* Navbar */
+.navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #000;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    z-index: 100;
+}
+
+.nav-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 15px;
+    border-radius: 8px;
+}
+
+.nav-item.active {
+    background-color: #333;
+}
+
+.nav-item img {
+    width: 24px;
+    height: 24px;
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubah Produk</title>
+    <link rel="stylesheet" href="form-produk.css">
+    <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+    <div class="header">
+        <div class="back-button">
+            <a href="katalog.html">
+                <img src="icons/Arrow-Left-2.svg" alt="Back">
+            </a>
+            <h1>Ubah Produk</h1>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>Informasi Produk</h2>
+
+        <div class="form-container">
+            <div class="form-section">
+                <div class="photo-section">
+                    <label>Foto Produk (Optional)</label>
+                    <p class="photo-limit">Max. 3 foto</p>
+                    <div class="photo-upload-container">
+                        <div class="photo-preview empty">
+                            <img src="icons/icon-camera.svg" alt="Camera" class="camera-icon">
+                            <input type="file" id="photo-upload" accept="image/*" class="photo-input">
+                        </div>
+                        <div class="add-photo">
+                            <img src="icons/Plus-square.svg" alt="Add Photo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="nama-produk">Nama Produk</label>
+                <input type="text" id="nama-produk" placeholder="Nama Produk" maxlength="50">
+                <div class="char-counter"><span id="nama-produk-count">0</span>/50</div>
+            </div>
+
+            <div class="form-group">
+                <label for="harga-jual">Harga Jual</label>
+                <input type="text" id="harga-jual" placeholder="Rp 00,00" maxlength="50">
+                <div class="char-counter"><span id="harga-jual-count">0</span>/50</div>
+            </div>
+
+            <div class="form-group">
+                <label for="harga-hpp">Harga Hpp</label>
+                <input type="text" id="harga-hpp" placeholder="Rp 00,00" maxlength="50">
+                <div class="char-counter"><span id="harga-hpp-count">0</span>/50</div>
+            </div>
+
+            <div class="form-group">
+                <div class="kategori-header">
+                    <label>Kategori</label>
+                    <button class="btn-atur-kategori">
+                        <img src="icons/Plus-square.svg" alt="Plus">
+                        Atur
+                    </button>
+                </div>
+                <div class="selected-categories" id="selected-categories">
+                    <!-- Kategori yang dipilih akan dimuat secara dinamis oleh JavaScript -->
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-simpan" id="btn-simpan">Simpan</button>
+                <button class="btn-hapus" id="btn-hapus">
+                    <img src="icons/Delete.svg" alt="Delete">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kategori Modal (hidden by default) -->
+    <div id="kategori-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Pilih Kategori</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="kategori-list" id="kategori-list">
+                    <!-- Kategori akan dimuat secara dinamis oleh JavaScript -->
+                </div>
+                <div class="form-group">
+                    <label for="new-kategori">Tambah Kategori Baru</label>
+                    <div class="add-kategori-input">
+                        <input type="text" id="new-kategori" placeholder="Nama Kategori">
+                        <button id="btn-add-kategori">Tambah</button>
+                    </div>
+                </div>
+                <button class="btn-terapkan-kategori" id="btn-terapkan-kategori">Terapkan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal (hidden by default) -->
+    <div id="delete-confirmation-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Konfirmasi Hapus</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin ingin menghapus produk ini?</p>
+                <div class="modal-buttons">
+                    <button id="btn-cancel-delete" class="option-btn">Batal</button>
+                    <button id="btn-confirm-delete" class="option-btn danger">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navbar">
+        <div class="nav-item">
+            <img src="icons/orders-icon.svg" alt="Orders">
+        </div>
+        <div class="nav-item active">
+            <img src="icons/database-icon.svg" alt="Database">
+        </div>
+        <div class="nav-item">
+            <img src="icons/laporan-icon.svg" alt="Laporan">
+        </div>
+    </div>
+
+    <!-- Authentication -->
+    <script src="auth.js"></script>    
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="form-produk.js"></script>
+</body>
+</html>

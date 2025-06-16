@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Manual</title>
+    <link rel="stylesheet" href="input-manual.css">
+    <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+    <div class="header">
+        <div class="back-button">
+            <a href="index.html">
+                <img src="icons/Arrow-Left-2.svg" alt="Back">
+            </a>
+            <h1>Input Manual</h1>
+        </div>
+        <button id="btn-selesai" class="btn-selesai">
+            Selesai
+        </button>
+    </div>
+
+    <div class="content">
+        <h2>Informasi Produk</h2>
+
+        <div class="form-container">
+            <div class="form-group">
+                <label for="nama-produk">Nama Produk</label>
+                <input type="text" id="nama-produk" placeholder="Nama Produk" maxlength="50">
+                <div class="char-counter"><span id="nama-produk-count">0</span>/50</div>
+            </div>
+
+            <div class="form-group">
+                <label for="harga-jual">Harga Jual</label>
+                <input type="text" id="harga-jual" placeholder="Rp 00,00" maxlength="50">
+                <div class="char-counter"><span id="harga-jual-count">0</span>/50</div>
+            </div>
+
+            <div class="form-group">
+                <label for="harga-hpp">Harga Hpp</label>
+                <input type="text" id="harga-hpp" placeholder="Rp 00,00" maxlength="50">
+                <div class="char-counter"><span id="harga-hpp-count">0</span>/50</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navbar">
+        <div class="nav-item active">
+            <img src="icons/orders-icon.svg" alt="Orders">
+        </div>
+        <div class="nav-item">
+            <img src="icons/database-icon.svg" alt="Database">
+        </div>
+        <div class="nav-item">
+            <img src="icons/laporan-icon.svg" alt="Laporan">
+        </div>
+    </div>
+    
+    <!-- Authentication -->
+    <script src="auth.js"></script>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="input-manual.js"></script>
+</body>
+</html>

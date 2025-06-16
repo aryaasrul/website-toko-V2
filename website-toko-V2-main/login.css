@@ -1,0 +1,115 @@
+@font-face {
+    font-family: 'Axiforma';
+    src: url('font/Axiforma-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Axiforma', sans-serif;
+}
+
+body {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0 20px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 420px;
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 40px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+input[type="text"], 
+input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+}
+
+input[type="text"]:focus, 
+input[type="password"]:focus {
+    border-color: #000;
+}
+
+.password-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.toggle-password img {
+    width: 24px;
+    height: 24px;
+    opacity: 0.6;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin: 20px 0 30px;
+}
+
+.remember-me input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 15px;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-login:hover {
+    background-color: #333;
+}
+
+.error-message {
+    color: #ff3333;
+    font-size: 14px;
+    margin-top: 20px;
+    text-align: center;
+    display: none;
+}

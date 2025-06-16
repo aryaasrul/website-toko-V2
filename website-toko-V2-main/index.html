@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasir</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Kasir</h1>
+        <div class="header-actions">
+            <span id="user-name" class="user-name"></span>
+            <button id="logout-btn" class="logout-btn">Logout</button>
+            
+            <!-- TOMBOL BARU UNTUK PRINTER -->
+            <button id="btn-connect-printer" class="btn-header-action">
+                <img src="https://placehold.co/24x24/e8e8e8/000000?text=🖨️" alt="Printer" style="width: 16px; height: 16px; margin-right: 8px;">
+                Printer
+            </button>
+            
+            <button class="btn-input-manual">
+                <img src="icons/icon-plus-input-manual.svg" alt="Plus">
+                Input Manual
+            </button>
+        </div>
+    </div>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Cari Produk">
+    </div>
+
+    <div class="categories">
+        <button class="category active">Semua Produk</button>
+        <button class="category">Espresso Based</button>
+        <button class="category">Milk Based</button>
+    </div>
+
+    <div class="product-list">
+        <!-- Produk akan dimuat secara dinamis oleh JavaScript -->
+    </div>
+
+    <div class="cart-summary">
+        <div class="cart-info">
+            <p>Total</p>
+            <p id="total-amount">Rp. 0</p>
+        </div>
+        <button id="btn-process" class="btn-process">Proses Pesanan</button>
+    </div>
+
+    <div class="navbar">
+        <div class="nav-item active">
+            <img src="icons/orders-icon.svg" alt="Orders">
+        </div>
+        <div class="nav-item">
+            <img src="icons/database-icon.svg" alt="Database">
+        </div>
+        <div class="nav-item">
+            <img src="icons/laporan-icon.svg" alt="Laporan">
+        </div>
+    </div>
+
+    <!-- Authentication -->
+    <script src="auth.js"></script>
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- SCRIPT BARU UNTUK PRINTER (HARUS SEBELUM kasir.js) -->
+    <script src="printer.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="kasir.js"></script>
+</body>
+</html>

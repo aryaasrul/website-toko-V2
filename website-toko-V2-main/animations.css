@@ -1,0 +1,45 @@
+/* Animasi dasar */
+
+/* Transisi halus untuk semua tombol */
+button {
+    transition: transform 0.2s;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Animasi hover untuk card produk */
+.product-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Animasi untuk input form */
+input {
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    border-color: #000;
+}
+
+/* Animasi modal/popup */
+.modal-content {
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
